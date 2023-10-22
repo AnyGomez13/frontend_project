@@ -1,10 +1,9 @@
 import { useState } from "react";
-
+import axios from "axios";
 export default function Login() {
   const [form, setForm] = useState({
-    usuario: "",
+    indentificacion: "",
     contraseña: "",
-    wantJoin: false,
   });
 
   function handleChange(event) {
@@ -23,8 +22,8 @@ export default function Login() {
 
     // Enviar los datos de inicio de sesión al servidor
     try {
-      const response = await axios.post("/login", {
-        usuario: form.usuario,
+      const response = await axios.post("http://localhost:3000/login", {
+        identificacion: form.indentificacion,
         contraseña: form.contraseña,
       });
 
@@ -49,7 +48,7 @@ export default function Login() {
           className="p-4 rounded-xl border-2"
           name="email"
           onChange={handleChange}
-          value={form.email}
+          value={form.indentificacion}
         />
         <input
           type="password"
@@ -57,10 +56,10 @@ export default function Login() {
           className="p-4 rounded-xl border-2"
           name="password"
           onChange={handleChange}
-          value={form.password}
+          value={form.contraseña}
         />
         <button className="bg-violet-700 py-2 px-10 rounded-md text-white">
-          Sign up
+          Ingresar
         </button>
       </form>
     </div>
