@@ -1,26 +1,9 @@
 import { useState } from "react";
 
 export default function Login() {
-  /**
-   * Challenge: Connect the form to local state
-   *
-   * 1. Create a state object to store the 4 values we need to save.
-   * 2. Create a single handleChange function that can
-   *    manage the state of all the inputs and set it up
-   *    correctly
-   * 3. When the user clicks "Sign up", check if the
-   *    password & confirmation match each other. If
-   *    so, log "Successfully signed up" to the console.
-   *    If not, log "passwords to not match" to the console.
-   * 4. Also when submitting the form, if the person checked
-   *    the "newsletter" checkbox, log "Thanks for signing
-   *    up for our newsletter!" to the console.
-   */
-
   const [form, setForm] = useState({
-    email: "",
-    password: "",
-    passwordConfirm: "",
+    usuario: "",
+    contraseña: "",
     wantJoin: false,
   });
 
@@ -35,20 +18,24 @@ export default function Login() {
     });
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    if (form.password === form.passwordConfirm) {
-      console.log("Logeado correctamente");
-    } else {
-      console.log("Vuelvalo a intentar");
-      return;
-    }
 
-    if (form.wantJoin) {
-      console.log("Thanks for signing up for our newsletter!");
-    }
+    // Enviar los datos de inicio de sesión al servidor
+    try {
+      const response = await axios.post("/login", {
+        usuario: form.usuario,
+        contraseña: form.contraseña,
+      });
 
-    alert(JSON.stringify(form));
+      if (response.status === 200) {
+        console.log("Inicio de sesión exitoso");
+        // Aquí podrías redirigir al usuario a la página de inicio de sesión exitoso, por ejemplo.
+      }
+    } catch (error) {
+      console.error("Error de inicio de sesión:", error);
+      // Aquí podrías mostrar un mensaje de error al usuario.
+    }
   }
 
   return (
@@ -58,8 +45,7 @@ export default function Login() {
         onSubmit={handleSubmit}
       >
         <input
-          type="email"
-          placeholder="Email address"
+          placeholder="Identificacion"
           className="p-4 rounded-xl border-2"
           name="email"
           onChange={handleChange}
@@ -67,32 +53,12 @@ export default function Login() {
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Contraseña"
           className="p-4 rounded-xl border-2"
           name="password"
           onChange={handleChange}
           value={form.password}
         />
-        <input
-          type="password"
-          placeholder="Confirm password"
-          className="p-4 rounded-xl border-2"
-          name="passwordConfirm"
-          onChange={handleChange}
-          value={form.passwordConfirm}
-        />
-
-        <div className="flex gap-4">
-          <input
-            id="okayToEmail"
-            type="checkbox"
-            className="accent-violet-700"
-            name="wantJoin"
-            checked={form.wantJoin}
-            onChange={handleChange}
-          />
-          <label htmlFor="okayToEmail">I want to join the newsletter</label>
-        </div>
         <button className="bg-violet-700 py-2 px-10 rounded-md text-white">
           Sign up
         </button>
