@@ -1,8 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
+
+
 export default function Login() {
   const [form, setForm] = useState({
-    indentificacion: "",
+    identificacion: "",
     contraseña: "",
   });
 
@@ -19,16 +21,18 @@ export default function Login() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-
     // Enviar los datos de inicio de sesión al servidor
     try {
+      let datos=()=>console.log(form.identificacion, form.contraseña);
+      datos();
       const response = await axios.post("http://localhost:3000/login", {
-        identificacion: form.indentificacion,
+        identificacion: form.identificacion,
         contraseña: form.contraseña,
       });
 
       if (response.status === 200) {
         console.log("Inicio de sesión exitoso");
+
         // Aquí podrías redirigir al usuario a la página de inicio de sesión exitoso, por ejemplo.
       }
     } catch (error) {
@@ -46,19 +50,20 @@ export default function Login() {
         <input
           placeholder="Identificacion"
           className="p-4 rounded-xl border-2"
-          name="email"
+          name="identificacion"
           onChange={handleChange}
-          value={form.indentificacion}
+          value={form.identificacion}
         />
         <input
           type="password"
           placeholder="Contraseña"
           className="p-4 rounded-xl border-2"
-          name="password"
+          name="contraseña"
           onChange={handleChange}
           value={form.contraseña}
         />
         <button className="bg-violet-700 py-2 px-10 rounded-md text-white">
+
           Ingresar
         </button>
       </form>
