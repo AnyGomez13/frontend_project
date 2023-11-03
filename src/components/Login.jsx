@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
 export default function Login() {
+const navigate = useNavigate();
+
+  const [error, setError] = useState(" ");
+
   const [form, setForm] = useState({
     identificacion: "",
     contraseña: "",
@@ -19,25 +23,44 @@ export default function Login() {
     });
   }
 
+
   async function handleSubmit(event) {
+
+    axios.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    )
     event.preventDefault();
     // Enviar los datos de inicio de sesión al servidor
     try {
-      let datos=()=>console.log(form.identificacion, form.contraseña);
+      let datos = () => console.log(form.identificacion, form.contraseña);
       datos();
       const response = await axios.post("http://localhost:3000/login", {
         identificacion: form.identificacion,
         contraseña: form.contraseña,
       });
 
-      if (response.status === 200) {
-        console.log("Inicio de sesión exitoso");
+      alert("Inicio de sesion exitoso");
+      // Limpiar los campos después de un inicio de sesión exitoso
+      navigate('/cuestionario');
+      setForm({
+        identificacion: "",
+        contraseña: "",
+      });
 
-        // Aquí podrías redirigir al usuario a la página de inicio de sesión exitoso, por ejemplo.
-      }
+
     } catch (error) {
-      console.error("Error de inicio de sesión:", error);
       // Aquí podrías mostrar un mensaje de error al usuario.
+      alert("Error de inicio de sesión:", error);
+      //Limpiar los campos despues de mostrar el mensaje de error. 
+      setForm({
+        identificacion: "",
+        contraseña: "",
+      });
     }
   }
 
@@ -67,6 +90,7 @@ export default function Login() {
           Ingresar
         </button>
       </form>
+      {error && <div className="error-message">{error}</div>}
     </div>
   );
 }

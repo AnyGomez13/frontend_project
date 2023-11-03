@@ -1,4 +1,6 @@
 import React from "react";
-<h1>
-    Este es el espacio de cuestionario
-</h1>
+import { useNavigate } from "react-router-dom";
+
+export default function Cuestionario() {
+  const navigate = useNavigate();
+}
