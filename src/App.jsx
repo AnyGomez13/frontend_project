@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom"; // Asegúrate de que Routes se importe correctamente.
+// import { Routes, Route } from "react-router-dom"; // Asegúrate de que Routes se importe correctamente.
 import Login from "./components/Login";
 import Cuestionario from "./components/Cuestionario";
 
@@ -13,7 +13,7 @@ function App() {
 
   return(
     <>
-    <Login/>    
+      <Login/>    
     </>
   )
 }
