@@ -1,6 +1,13 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import '../styles/Cuestionario.css';
 
-export default function Cuestionario() {
-  const navigate = useNavigate();
-}
+export default function CrearPreguntas(){
+
+  return(
+    <div className="contenedorPrincipal">
+      <div className="contenedorIzquierda"></div>
+      <div className="contenedorDerecha"></div>
+      <div className="contenedorSapo"></div>
+    </div>
+  )
+};

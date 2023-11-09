@@ -1,0 +1,26 @@
+.contenedorIzquierda{
+    background-color: black;
+    height: 100vh;
+    width: 30vw;
+}
+
+.contenedorDerecha{
+    background-color: #ffff02;
+    width: 70vw;
+    height: 100vh;
+
+}
+
+.contenedorPrincipal{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.contenedorSapo{
+    width: 50vw;
+    height: 100vh;
+    background-color: #0f0;
+}
