@@ -1,13 +1,13 @@
 .contenedorIzquierda{
-    background-color: black;
-    height: 100vh;
-    width: 30vw;
+    background-color: rgb(20, 178, 246);
+    height: 90vh;
+    width: 15vw;
 }
 
 .contenedorDerecha{
-    background-color: #ffff02;
-    width: 70vw;
-    height: 100vh;
+    background-color: #ffffff;
+    width: 80vw;
+    height: 90vh;
 
 }
 
@@ -19,8 +19,18 @@
 
 }
 
-.contenedorSapo{
-    width: 50vw;
-    height: 100vh;
-    background-color: #0f0;
+.contenedorArriba{
+    width: 100vw;
+    height: 10vh;
+    background-color: rgb(20, 178, 246);
+}
+
+h1{
+    display: grid;
+    place-items: center;
+    font-size: 3.5vw;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+
+    
 }
