@@ -1,17 +1,6 @@
-.contenedorIzquierda{
-    background-color: rgb(20, 178, 246);
-    height: 90vh;
-    width: 15vw;
-}
 
-.contenedorDerecha{
-    background-color: #ffffff;
-    width: 80vw;
-    height: 90vh;
 
-}
-
-.contenedorPrincipal{
+.contenedorPrincipal {
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -19,18 +8,177 @@
 
 }
 
-.contenedorArriba{
+.contenedorArriba {
     width: 100vw;
-    height: 10vh;
-    background-color: rgb(20, 178, 246);
+    height: 50vh;
+    background-color: rgb(0, 26, 142);
 }
 
-h1{
+.contenedorAbajo {
+    width: 100vw;
+    height: 50vh;
+    background-color: rgb(255, 255, 255)
+}
+
+.contenedorCentrado {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    max-width: 800px; /* Ancho máximo para evitar que sea demasiado ancho */
+    height: 60%;
+    max-height: 80vh; /* Altura máxima para evitar que sea demasiado alto */
+    overflow: auto; /* Agrega barra de desplazamiento cuando sea necesario */
+    background-color: #eee;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #000000;
+}
+
+h1 {
     display: grid;
     place-items: center;
     font-size: 3.5vw;
     font-family: 'Times New Roman', Times, serif;
     font-weight: bold;
 
-    
+
+}
+
+/* Navbar styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(0, 26, 142);
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+.logo {
+    font-size: 1.5rem;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-link {
+    margin-right: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #000000;
+}
+
+.selected {
+    color: #ffcc00;
+}
+
+.contenedorArriba {
+    width: 100vw;
+    height: 50vh;
+    background-color: rgb(0, 26, 142);
+}
+
+.formularioCuestionario {
+    margin-bottom: 20px;
+}
+
+.filaCuestionario {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.filaCuestionario span {
+    flex-grow: 1;
+    margin-right: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+button {
+    background-color: rgb(0, 26, 142);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2365c8;
+    /* Cambia el color al pasar el ratón sobre el botón */
+}
+
+.filaCuestionario button {
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.filaCuestionario button:hover {
+    background-color: #2365c8;
+    /* Cambia el color al pasar el ratón sobre el botón */
+}
+
+input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    /* Borde gris */
+    border-radius: 5px;
+    margin-right: 10px;
+    width: 300px;
+    /* Ancho del input */
+}
+
+/* Alinea el input y el botón en la misma fila */
+div>input,
+div>button {
+    vertical-align: middle;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold; 
+    color: #007bff; /* Color azul brillante */
+    text-align: center; 
+    margin-bottom: 20px;
+    font-family: 'Roboto', sans-serif; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+  }
+
+  .contenedorCuestionarios {
+    max-height: calc(100% - 40px); /* Ajusta el alto para evitar que el contenido se desborde */
+    overflow-y: auto; /* Agrega barra de desplazamiento vertical cuando sea necesario */
+}
+
+/* Ajustes para el formulario nuevo cuestionario */
+.formularioNuevoCuestionario {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+button.mostrarFormulario {
+    margin: 5px 5px 5px 5px; /* Agrega margen a la derecha para separar del contenido */
+    padding: 5px 10px; /* Ajusta el tamaño del botón */
+    font-size: 14px; /* Ajusta el tamaño del texto del botón */
 }
