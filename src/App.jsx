@@ -12,6 +12,7 @@ function App() {
                 element={<Navigate to="/" replace/>}
             />
             <Route path="/cuestionario" element={<Cuestionario/>}/>
+            <Route path="/preguntas" element={<Preguntas/>}></Route>
         </Routes>
     );
 }

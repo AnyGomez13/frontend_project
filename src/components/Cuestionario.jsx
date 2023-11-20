@@ -1,23 +1,30 @@
 import React, { useState } from 'react';
 import '../styles/Cuestionario.css';
 import { useEffect } from 'react';
+import axios from 'axios';
 
 
 export default function CrearPreguntas() {
   const [cuestionarios, setCuestionarios] = useState([]);
   const [nuevoCuestionario, setNuevoCuestionario] = useState('');
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [nombreModificado, setNombreModificado] = useState('');
+  const [cuestionarioModificando, setCuestionarioModificando] = useState(null);
 
   useEffect(() => {
     // Lógica para obtener cuestionarios desde el backend
-    // Puedes hacer una solicitud a tu API o base de datos aquí
-    // Aquí un ejemplo de cuestionarios estáticos para demostración
-    setCuestionarios([
-      { id: 1, nombre: 'Nombre 1' },
-      { id: 2, nombre: 'Nombre 2' },
-      // Agrega más cuestionarios si es necesario
-    ]);
+    obtenerCuestionarios();
   }, []);
+
+  const obtenerCuestionarios = () => {
+    axios.get('http://localhost:3000/cuestionario')
+      .then((response) => {
+        setCuestionarios(response.data);
+      })
+      .catch((error) => {
+        console.error('Error al obtener cuestionarios:', error);
+      });
+  };
 
   const abrirCuestionario = (id) => {
     // Lógica para redirigir a la ventana de preguntas del cuestionario
@@ -26,47 +33,98 @@ export default function CrearPreguntas() {
 
   const agregarCuestionario = () => {
     // Lógica para agregar un nuevo cuestionario en el backend
-    // Puedes hacer una solicitud a tu API o base de datos aquí
-    // Aquí un ejemplo de cómo podrías hacerlo
-    const nuevoCuestionarioObj = {
-      id: Date.now(), // Generar un ID único
-      nombre: nuevoCuestionario,
-    };
+    if (nuevoCuestionario.length > 0) {
+      axios.post('http://localhost:3000/cuestionario', { nombre: nuevoCuestionario })
+        .then((response) => {
+          console.log(response.data.message);
+          obtenerCuestionarios(); // Actualizar la lista de cuestionarios después de agregar uno nuevo
+        })
+        .catch((error) => {
+          console.error('Error al agregar cuestionario:', error);
+        });
 
-    setCuestionarios([...cuestionarios, nuevoCuestionarioObj]);
-
-    // Aquí deberías enviar el nuevoCuestionarioObj al backend para guardarlo en la base de datos
-
-    // También puedes limpiar el estado del nuevo cuestionario después de agregarlo
-    setNuevoCuestionario('');
+      // También puedes limpiar el estado del nuevo cuestionario después de agregarlo
+      setNuevoCuestionario('');
+      setMostrarFormulario(false);
+    } else {
+      alert("No puede agregar nombres vacíos");
+    }
   };
 
-  const eliminarCuestionario = (id) => {
+  const eliminarCuestionario = async (id) => {
     // Lógica para eliminar un cuestionario en el backend
-    // Puedes hacer una solicitud a tu API o base de datos aquí
-    // Aquí un ejemplo de cómo podrías hacerlo
-    const cuestionariosActualizados = cuestionarios.filter((c) => c.id !== id);
-    setCuestionarios(cuestionariosActualizados);
-
-    // Aquí deberías enviar la solicitud al backend para eliminar el cuestionario con el ID correspondiente
+    axios.delete(`http://localhost:3000/cuestionario/${id}`)
+      .then((response) => {
+        console.log(response.data.message);
+        obtenerCuestionarios(); // Actualizar la lista de cuestionarios después de eliminar uno
+      })
+      .catch((error) => {
+        console.error('Error al eliminar cuestionario:', error);
+      });
   };
 
+  const iniciarModificacion = (cuestionario) => {
+    setNombreModificado(cuestionario.nombre);
+    setCuestionarioModificando(cuestionario);
+    setMostrarFormulario(true);
+  };
+
+  const cancelarModificacion = () => {
+    setNombreModificado('');
+    setCuestionarioModificando(null);
+    setMostrarFormulario(false);
+  };
+
+  const modificarCuestionario = () => {
+
+    
+    if (cuestionarioModificando && nombreModificado) {
+      axios.put(`http://localhost:3000/cuestionario/${cuestionarioModificando.id}`, {
+        nombre: nombreModificado,
+      })
+        .then((response) => {
+          console.log(response.data.message);
+          obtenerCuestionarios();
+          setNombreModificado('');
+          setCuestionarioModificando(null);
+        })
+        .catch((error) => {
+          console.error('Error al modificar cuestionario:', error);
+        });
+    }
+  };
   return (
     <div className="contenedorPrincipal">
       <div className="contenedorCentrado">
         <h2>Cuestionarios</h2>
         {mostrarFormulario && (
           <div className="formularioNuevoCuestionario">
-            <input
-              type="text"
-              value={nuevoCuestionario}
-              onChange={(e) => setNuevoCuestionario(e.target.value)}
-              placeholder="Nombre"
-            />
-            <button onClick={agregarCuestionario}>Agregar Cuestionario</button>
+            {cuestionarioModificando ? (
+              <>
+                <input
+                  type="text"
+                  value={nombreModificado}
+                  onChange={(e) => setNombreModificado(e.target.value)}
+                  placeholder="Nuevo Nombre"
+                />
+                <button onClick={modificarCuestionario}>Guardar</button>
+                <button onClick={cancelarModificacion}>Cancelar</button>
+              </>
+            ) : (
+              <>
+                <input
+                  type="text"
+                  value={nuevoCuestionario}
+                  onChange={(e) => setNuevoCuestionario(e.target.value)}
+                  placeholder="Nombre"
+                />
+                <button onClick={agregarCuestionario}>Agregar Cuestionario</button>
+              </>
+            )}
           </div>
         )}
-        <button className={`mostrarFormulario ${mostrarFormulario ? 'ocultar' : ''}`}
+        <button
+          className={`mostrarFormulario ${mostrarFormulario ? 'ocultar' : ''}`}
           onClick={() => setMostrarFormulario(!mostrarFormulario)}
         >
           +
@@ -79,6 +137,7 @@ export default function CrearPreguntas() {
                   <span>{cuestionario.nombre}</span>
                   <button onClick={() => abrirCuestionario(cuestionario.id)}>Abrir</button>
                   <button onClick={() => eliminarCuestionario(cuestionario.id)}>Eliminar</button>
+                  <button onClick={() => iniciarModificacion(cuestionario)}>Modificar</button>
                 </div>
               ))
             ) : (
@@ -100,5 +159,4 @@ export default function CrearPreguntas() {
       <div className="contenedorAbajo"></div>
     </div>
   );
-}
-
+};

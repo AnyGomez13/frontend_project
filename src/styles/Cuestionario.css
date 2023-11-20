@@ -115,6 +115,7 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    margin: 5px 5px 5px 5px;
     transition: background-color 0.3s ease;
 }
 
@@ -166,8 +167,8 @@ h2 {
   }
 
   .contenedorCuestionarios {
-    max-height: calc(100% - 40px); /* Ajusta el alto para evitar que el contenido se desborde */
-    overflow-y: auto; /* Agrega barra de desplazamiento vertical cuando sea necesario */
+    max-height: calc(100% - 40px); 
+    overflow-y: auto; 
 }
 
 /* Ajustes para el formulario nuevo cuestionario */
@@ -182,3 +183,9 @@ button.mostrarFormulario {
     padding: 5px 10px; /* Ajusta el tamaño del botón */
     font-size: 14px; /* Ajusta el tamaño del texto del botón */
 }
+button.modificarCuestionario{
+    margin: 5px 5px 5px 5px; /* Agrega margen a la derecha para separar del contenido */
+    padding: 5px 10px; /* Ajusta el tamaño del botón */
+    font-size: 14px;
+}
+
