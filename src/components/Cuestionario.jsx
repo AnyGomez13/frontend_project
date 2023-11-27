@@ -16,8 +16,8 @@ export default function CrearPreguntas() {
   const [cuestionarioModificando, setCuestionarioModificando] = useState(null);
 
   useEffect(() => {
-    // Lógica para obtener cuestionarios desde el backend
     obtenerCuestionarios();
+
   }, []);
 
   const obtenerCuestionarios = () => {
@@ -36,19 +36,19 @@ export default function CrearPreguntas() {
     navigate(`/preguntas/${id}`);
   };
 
-  const agregarCuestionario = () => {
+  const agregarCuestionario = async() => {
     // Lógica para agregar un nuevo cuestionario en el backend
     if (nuevoCuestionario.length > 0) {
       axios.post('http://localhost:3000/cuestionario', { nombre: nuevoCuestionario })
         .then((response) => {
-          console.log(response.data.message);
-          obtenerCuestionarios(); // Actualizar la lista de cuestionarios después de agregar uno nuevo
+           obtenerCuestionarios(); 
         })
         .catch((error) => {
           console.error('Error al agregar cuestionario:', error);
         });
 
       // También puedes limpiar el estado del nuevo cuestionario después de agregarlo
+      obtenerCuestionarios();
       setNuevoCuestionario('');
       setMostrarFormulario(false);
     } else {
