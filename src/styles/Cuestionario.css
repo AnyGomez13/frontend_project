@@ -26,9 +26,9 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 70%;
-    max-width: 800px; /* Ancho máximo para evitar que sea demasiado ancho */
+    max-width: 800vw; /* Ancho máximo para evitar que sea demasiado ancho */
     height: 60%;
-    max-height: 80vh; /* Altura máxima para evitar que sea demasiado alto */
+    max-height: 50vh; /* Altura máxima para evitar que sea demasiado alto */
     overflow: auto; /* Agrega barra de desplazamiento cuando sea necesario */
     background-color: #eee;
     padding: 20px;

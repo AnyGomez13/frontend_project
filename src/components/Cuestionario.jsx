@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import '../styles/Cuestionario.css';
+import "../styles/Cuestionario.css"
 import { useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 
 export default function CrearPreguntas() {
+
+  const navigate = useNavigate();
   const [cuestionarios, setCuestionarios] = useState([]);
   const [nuevoCuestionario, setNuevoCuestionario] = useState('');
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
@@ -27,8 +31,9 @@ export default function CrearPreguntas() {
   };
 
   const abrirCuestionario = (id) => {
+    console.log("Abriendo cuestionanrio con id", id);
     // Lógica para redirigir a la ventana de preguntas del cuestionario
-    console.log(`Abrir cuestionario con ID: ${id}`);
+    navigate(`/preguntas/${id}`);
   };
 
   const agregarCuestionario = () => {
@@ -77,7 +82,7 @@ export default function CrearPreguntas() {
 
   const modificarCuestionario = () => {
 
-    
+
     if (cuestionarioModificando && nombreModificado) {
       axios.put(`http://localhost:3000/cuestionario/${cuestionarioModificando.id}`, {
         nombre: nombreModificado,
@@ -91,6 +96,8 @@ export default function CrearPreguntas() {
         .catch((error) => {
           console.error('Error al modificar cuestionario:', error);
         });
+        setMostrarFormulario(false);
+
     }
   };
   return (
@@ -151,8 +158,7 @@ export default function CrearPreguntas() {
           <div className="logo">Udi-WebCaracteriza</div>
           <ul className="nav-links">
             <li className="nav-link selected">Cuestionario</li>
-            <li className="nav-link">Informes</li>
-            <li className="nav-link">Procesos</li>
+
           </ul>
         </nav>
       </div>

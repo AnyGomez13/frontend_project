@@ -2,6 +2,7 @@ import "./App.css";
 import {Routes, Route, Navigate} from "react-router-dom"; // Asegúrate de que Routes se importe correctamente.
 import Login from "./components/Login";
 import Cuestionario from "./components/Cuestionario";
+import Preguntas from "./components/Preguntas";
 
 function App() {
     return (
@@ -12,7 +13,7 @@ function App() {
                 element={<Navigate to="/" replace/>}
             />
             <Route path="/cuestionario" element={<Cuestionario/>}/>
-            <Route path="/preguntas" element={<Preguntas/>}></Route>
+            <Route path="/preguntas/:id" element={<Preguntas/>}></Route>
         </Routes>
     );
 }
